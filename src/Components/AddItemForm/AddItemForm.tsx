@@ -36,7 +36,7 @@ export const AddItemForm = React.memo(function ({addItem, disabled = false}: Add
         />
         <View style={{paddingHorizontal: 15}}>
             <TouchableOpacity>
-                <Ionicons name="add-circle-outline" size={27} color="black" onPress={addItemHandler}/>
+                <Ionicons name="add-circle-outline" size={40} color="black" onPress={addItemHandler}/>
             </TouchableOpacity>
         </View>
     </View>

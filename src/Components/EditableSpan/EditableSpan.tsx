@@ -47,6 +47,7 @@ export const EditableSpan = React.memo(function (props: EditableSpanPropsType) {
 
 });
 //<TextField value={title} onChange={changeTitle} autoFocus onBlur={activateViewMode}/>
+
 const styles = StyleSheet.create({
     input: {
         width: 150,

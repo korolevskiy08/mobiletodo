@@ -1,4 +1,4 @@
-import {useCallback, useEffect} from 'react'
+import {useCallback, useEffect, useState} from 'react'
 import {AddItemForm} from '../../../AddItemForm/AddItemForm'
 import {EditableSpan} from '../../../EditableSpan/EditableSpan'
 
@@ -12,7 +12,7 @@ import {AppRootStateType, useAppDispatch} from "../../../../state/store";
 import {StatusType} from "../../../App/app-reducer";
 import * as React from "react";
 import {Button, TouchableOpacity, View} from "react-native";
-
+import {AntDesign} from '@expo/vector-icons';
 
 type PropsType = {
     id: string
@@ -30,6 +30,7 @@ type PropsType = {
 }
 
 export const Todolist = React.memo(function (props: PropsType) {
+    const [showTodolists, setShowTodoList] = useState(true)
 
     const status = useSelector<AppRootStateType, string>(state => state.app.status)
 
@@ -50,6 +51,9 @@ export const Todolist = React.memo(function (props: PropsType) {
     const onActiveClickHandler = useCallback(() => props.changeFilter('active', props.id), [props.id, props.changeFilter])
     const onCompletedClickHandler = useCallback(() => props.changeFilter('completed', props.id), [props.id, props.changeFilter])
 
+    const showTodolist = () => {
+        setShowTodoList(!showTodolists)
+    }
 
     let tasksForTodolist = props.tasks
 
@@ -64,41 +68,46 @@ export const Todolist = React.memo(function (props: PropsType) {
         dispatch(fetchTaskTC(props.id))
     }, [])
 
-    return <View>
-        <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-            <EditableSpan value={props.title} onChange={changeTodolistTitle}/>
-            <View>
+    return <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+            <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+                <TouchableOpacity style={{paddingHorizontal: 20}}>
+                    <AntDesign name="downcircle" size={24} color="black" onPress={showTodolist}/>
+                </TouchableOpacity>
+                <EditableSpan value={props.title} onChange={changeTodolistTitle}/>
                 <TouchableOpacity onPress={removeTodolist} style={{marginLeft: 25}}>
                     <MaterialCommunityIcons name="delete" size={24} color="black"/>
                 </TouchableOpacity>
             </View>
+            {showTodolists && <View>
+                    <AddItemForm addItem={addTask} disabled={props.entityStatus === 'loading'}/>
+                <View>
+                    {
+                        tasksForTodolist.map(t => <Task key={t.id} task={t} todolistId={props.id}
+                                                        removeTask={props.removeTask}
+                                                        changeTaskTitle={props.changeTaskTitle}
+                                                        changeTaskStatus={props.changeTaskStatus}
+                        />)
+                    }
+                </View>
+                <View style={{paddingVertical: 10, flexDirection: 'row', justifyContent: 'space-between'}}>
+                    <Button
+                        title="All"
+                        color={'#f9bc60'}
+                    />
+                    <Button
+                        title="Completed"
+                        color={'#f9bc60'}
+                    />
+                    <Button
+                        title="Active"
+                        color={'#f9bc60'}
+                    />
+                </View>
+            </View>}
+
+            {/*disabled={props.entityStatus === 'loading'*/}
+
         </View>
-        {/*disabled={props.entityStatus === 'loading'*/}
-        <AddItemForm addItem={addTask} disabled={props.entityStatus === 'loading'}/>
-        <View>
-            {
-                tasksForTodolist.map(t => <Task key={t.id} task={t} todolistId={props.id}
-                                                removeTask={props.removeTask}
-                                                changeTaskTitle={props.changeTaskTitle}
-                                                changeTaskStatus={props.changeTaskStatus}
-                />)
-            }
-        </View>
-        <View style={{paddingVertical: 10, flexDirection: 'row', justifyContent: 'space-between'}}>
-            <Button
-                title="All"
-                color={'#f9bc60'}
-            />
-            <Button
-                title="Completed"
-                color={'#f9bc60'}
-            />
-            <Button
-                title="Active"
-                color={'#f9bc60'}
-            />
-        </View>
-    </View>
-})
+        })
 
 
