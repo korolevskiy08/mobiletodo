@@ -1,7 +1,8 @@
 {
   "expo": {
-    "name": "todoRN",
-    "slug": "todoRN",
+    "name": "nobiletodo",
+    "owner": "korolevev",
+    "slug": "mobiletodo",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
