@@ -6,7 +6,8 @@ const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.1/',
     withCredentials: true,
     headers: {
-        'API-KEY': '6a186eca-b950-4867-b1d4-cf6c7447fc05'
+        'API-KEY': '6a186eca-b950-4867-b1d4-cf6c7447fc05',
+        'cookie': '.ASPXAUTH=C6255FA262DD5BE81706BBAB9A73858CEF6CB0B4BED188DDDB71800373E04DD48E06410F48EB11CACE6B68C039FAE87DF04A5AB9365FF7DD954BA36E0CF390A301EB15CC88AD7405215AAAE02E73DBB66211C475; ASP.NET_SessionId=vxrkb2laug1eoni21q2winpk'
     }
 })
 

@@ -73,12 +73,7 @@ export const Todolist = React.memo(function (props: PropsType) {
                 </TouchableOpacity>
             </View>
         </View>
-
         {/*disabled={props.entityStatus === 'loading'*/}
-        {/*<IconButton onClick={removeTodolist} disabled={props.entityStatus === 'loading'}>*/}
-        {/*    <Delete/>*/}
-        {/*</IconButton>*/}
-
         <AddItemForm addItem={addTask} disabled={props.entityStatus === 'loading'}/>
         <View>
             {
@@ -89,15 +84,18 @@ export const Todolist = React.memo(function (props: PropsType) {
                 />)
             }
         </View>
-        <View style={{paddingTop: '10px', flexDirection: 'row', justifyContent: 'space-between'}}>
+        <View style={{paddingVertical: 10, flexDirection: 'row', justifyContent: 'space-between'}}>
             <Button
                 title="All"
+                color={'#f9bc60'}
             />
             <Button
                 title="Completed"
+                color={'#f9bc60'}
             />
             <Button
                 title="Active"
+                color={'#f9bc60'}
             />
         </View>
     </View>

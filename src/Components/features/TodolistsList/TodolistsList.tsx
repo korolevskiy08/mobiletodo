@@ -15,7 +15,7 @@ import {TaskStatuses} from "../../../api/todoapi";
 import {AddItemForm} from "../../AddItemForm/AddItemForm";
 import {Todolist} from "./Todolist/Todolist";
 import {TasksStateType} from "../../App/MainApp";
-import {Navigate} from "react-router-dom";
+// import {Navigate} from "react-router-dom";
 import {View, Text} from "react-native";
 
 export const Todolists = () => {
@@ -62,10 +62,9 @@ export const Todolists = () => {
         dispatch(fetchTodolistsTC())
     }, [])
 
-    if (!isLoggedIn) {
-        return <Navigate to={'/Login'}/>
-
-    }
+    // if (!isLoggedIn) {
+    //     return <Navigate to={'/Login'}/>
+    // }
 
     return (
         <View style={{justifyContent: 'space-between'}}>
@@ -75,7 +74,7 @@ export const Todolists = () => {
                         let allTodolistTasks = tasks[tl.id];
 
                         return <View key={tl.id}>
-                            <View style={{padding: '10px'}}>
+                            <View style={{padding: 10, backgroundColor: '#e8e4e6', marginVertical: 10}}>
                                 <Todolist
                                     entityStatus={tl.entityStatus}
                                     id={tl.id}

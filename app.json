@@ -1,8 +1,8 @@
 {
   "expo": {
     "name": "nobiletodo",
-    "owner": "korolevev",
-    "slug": "mobiletodo",
+    "owner": "krakenhri",
+    "slug": "kromos",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -32,3 +32,4 @@
     }
   }
 }
+

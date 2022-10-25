@@ -23,17 +23,8 @@ export const AddItemForm = React.memo(function ({addItem, disabled = false}: Add
         }
     }
 
-    const onChangeHandler = (e: string/*ChangeEvent<HTMLInputElement>*/) => {
+    const onChangeHandler = (e: string ) => {
         setTitle(e)
-    }
-
-    const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        if (error !== null) {
-            setError(null);
-        }
-        if (e.charCode === 13) {
-            addItemHandler();
-        }
     }
 
     return <View style={{flexDirection: 'row', justifyContent: 'center', paddingVertical: 10}}>
@@ -48,20 +39,13 @@ export const AddItemForm = React.memo(function ({addItem, disabled = false}: Add
                 <Ionicons name="add-circle-outline" size={27} color="black" onPress={addItemHandler}/>
             </TouchableOpacity>
         </View>
-        {/*<TextField variant="outlined"*/}
-        {/*           disabled={disabled}*/}
-        {/*           error={!!error}*/}
-        {/*           value={title}*/}
-        {/*           onChange={onChangeHandler}*/}
-        {/*           onKeyPress={onKeyPressHandler}*/}
-        {/*           label="Title"*/}
-        {/*           helperText={error}*/}
-        {/*/>*/}
     </View>
 })
+
 const styles = StyleSheet.create({
         input: {
-            height: 27,
+            height: 40,
+            width: 200,
             borderWidth: 1,
             padding: 10,
             borderColor: '#fffffe',
