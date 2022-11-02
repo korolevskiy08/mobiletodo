@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {Provider} from 'react-redux';
 import MainApp from "./src/Components/App/MainApp";
 import {store} from "./src/state/store";

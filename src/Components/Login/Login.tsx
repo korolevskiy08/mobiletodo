@@ -1,10 +1,11 @@
 import React from 'react'
-import {useFormik} from "formik";
+import {Formik, useFormik} from "formik";
 import {useSelector} from "react-redux";
 import {loginTC} from "./authReducer";
 import {AppRootStateType, useAppDispatch} from "../../state/store";
 import {Button, StyleSheet, Text, TextInput, View} from "react-native";
 import Checkbox from "expo-checkbox";
+import {LoginProps} from "../../utils/NavigationType";
 
 type FormikErrorType = {
     email?: string
@@ -12,7 +13,7 @@ type FormikErrorType = {
     rememberMe?: boolean
 }
 
-export const Login = () => {
+export const Login = ({navigation}: LoginProps) => {
 
     const dispatch = useAppDispatch()
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
@@ -42,9 +43,9 @@ export const Login = () => {
         },
     });
 
-    // if (isLoggedIn) {
-    //     return <Navigate to={'/'}/>
-    // }
+    if (isLoggedIn) {
+        return navigation.navigate('Todolists')
+    }
 
     return <View style={{backgroundColor: '#abd1c6', height: '100%', paddingVertical: 50}}>
         {/*<form onSubmit={formik.handleSubmit}>*/}
@@ -57,14 +58,14 @@ export const Login = () => {
         </View>
         <View>
             <TextInput style={styles.input}
-                placeholder="Email"
-                {...formik.getFieldProps('email')}
+                       placeholder="Email"
+                       {...formik.getFieldProps('email')}
             />
             {formik.touched.email ? formik.errors.email &&
                 <View>{formik.errors.email}</View> : null}
             <TextInput style={styles.input}
-                placeholder="Password"
-                {...formik.getFieldProps('password')}
+                       placeholder="Password"
+                       {...formik.getFieldProps('password')}
             />
             {formik.touched.password ? formik.errors.password &&
                 <View>{formik.errors.password}</View> : null}
@@ -72,7 +73,6 @@ export const Login = () => {
                 <Checkbox/>
                 <Text style={{paddingHorizontal: 10}}>Remember me</Text>
             </View>
-
             <Button color={'#f9bc60'} title={'Login'}/>
         </View>
     </View>
