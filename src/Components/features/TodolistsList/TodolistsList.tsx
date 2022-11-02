@@ -1,22 +1,23 @@
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {AppRootStateType, useAppDispatch} from "../../../state/store";
 import {
     addTodolistTC,
-    changeTodolistFilterAC, fetchTodolistsTC,
-
+    changeTodolistFilterAC,
+    fetchTodolistsTC,
     FilterValuesType,
     removeTodolistTC,
-    TodolistDomainType, TodolistsActionsType,
+    TodolistDomainType,
+    TodolistsActionsType,
     updateTodolist
 } from "../../../state/todolists-reducer";
 import {useCallback, useEffect} from "react";
 import {addTaskTC, deleteTaskTC, updateTaskTC} from "../../../state/tasks-reducer";
 import {TaskStatuses} from "../../../api/todoapi";
-import {AddItemForm} from "../../AddItemForm/AddItemForm";
 import {Todolist} from "./Todolist/Todolist";
 import {TasksStateType} from "../../App/MainApp";
-// import {Navigate} from "react-router-dom";
-import {View, Text} from "react-native";
+import {Button, View} from "react-native";
+import {AddItemForm} from "../../AddItemForm/AddItemForm";
+import {logoutTC} from "../../Login/authReducer";
 
 export const Todolists = () => {
 
@@ -42,7 +43,7 @@ export const Todolists = () => {
         }))
     }, []);
     const changeTaskTitle = useCallback(function (taskId: string, newTitle: string, todolistId: string) {
-        dispatch(updateTaskTC({todolistId, taskId, model: {title: newTitle} }))
+        dispatch(updateTaskTC({todolistId, taskId, model: {title: newTitle}}))
     }, []);
 
     const changeFilter = useCallback(function (value: FilterValuesType, todolistId: string) {
@@ -56,18 +57,39 @@ export const Todolists = () => {
     const changeTodolistTitle = useCallback(function (id: string, title: string) {
         dispatch(updateTodolist({todolistId: id, title}))
     }, []);
+    const logoutHandler = () => {
+        dispatch(logoutTC())
+    }
 
+    const addTodolist = useCallback((title: string) => {
+        dispatch(addTodolistTC(title))
+    }, [dispatch]);
 
     useEffect(() => {
         dispatch(fetchTodolistsTC())
     }, [])
 
     // if (!isLoggedIn) {
-    //     return <Navigate to={'/Login'}/>
+    //     return navigation.navigate('Login')
     // }
 
     return (
-        <View style={{justifyContent: 'space-between'}}>
+        <View style={{backgroundColor: '#abd1c6', height: '100%'}}>
+            <View style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                paddingVertical: 30
+            }}>
+                {isLoggedIn &&
+                    <View style={{width: 100}}>
+                        <Button color={'#f9bc60'} onPress={logoutHandler} title={'Logout'}/>
+                    </View>
+                }
+                <View>
+                    <AddItemForm addItem={addTodolist}/>
+                </View>
+            </View>
             <View>
                 {
                     todolists.map(tl => {
