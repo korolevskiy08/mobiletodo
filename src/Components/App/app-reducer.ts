@@ -1,8 +1,8 @@
 import {authAPI} from "../../api/todoapi";
 import {setIsLoggedInAC} from "../Login/authReducer";
 import axios from "axios";
-import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
 
 export type StatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 

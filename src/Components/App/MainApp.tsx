@@ -1,16 +1,17 @@
 import {useEffect} from 'react'
+// import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
+// import {Login} from "../Login/Login";
+import {Text, View} from 'react-native'
 import {TaskType} from "../../api/todoapi";
 import {useSelector} from "react-redux";
 import {AppRootStateType, useAppDispatch} from "../../state/store";
 import {initializeAppTC, StatusType} from "./app-reducer";
-// import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
-// import {Login} from "../Login/Login";
-import {View} from "react-native";
-import {MD3Colors, ProgressBar} from 'react-native-paper';
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
-import {Login} from "../Login/Login";
 import {NavigationContainer} from "@react-navigation/native";
 import {RootStackParamList} from "../../utils/NavigationType";
+import {Login} from "../Login/Login";
+import {Todolists} from "../features/TodolistsList/TodolistsList";
+import {ProgressBar, MD3Colors} from "react-native-paper";
 // import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 
 export type TasksStateType = {
@@ -35,29 +36,19 @@ function MainApp() {
 
         </View>
     }
+
     return (
         <>
             {status === 'loading' && <ProgressBar progress={0.5} color={MD3Colors.error50}/>}
-            <View>
-                <NavigationContainer>
-                    <Stack.Navigator>
-                        {/*<Stack.Screen name="Todolists" component={<Todolists/>}/>*/}
-                        {/*<Stack.Screen name="Login" component={<Login navigation={} route={}/>}/>*/}
-                    </Stack.Navigator>
-                </NavigationContainer>
-
-                {/*<BrowserRouter>*/}
-                {/*    <Routes>*/}
-                {/*        <Route path={'/'} element={<Todolists/>}/>*/}
-                {/*        /!*<Route path={'/Login'} element={<Login/>}/>*!/*/}
-                {/*        <Route path={'/404'} element={<h1>404. Page not found</h1>}/>*/}
-                {/*        <Route path={'*'} element={<Navigate to={'/404'}/>}/>*/}
-                {/*    </Routes>*/}
-                {/*</BrowserRouter>*/}
-            </View>
+            <NavigationContainer>
+                <Stack.Navigator initialRouteName={"TODO_LISTS"}>
+                    {isLoggedIn
+                        ? <Stack.Screen name="TODO_LISTS" component={Todolists}/>
+                        : <Stack.Screen name={"LOGIN"} component={Login}/>}
+                </Stack.Navigator>
+            </NavigationContainer>
         </>
-    )
-        ;
+    );
 }
 
 

@@ -69,10 +69,6 @@ export const Todolists = () => {
         dispatch(fetchTodolistsTC())
     }, [])
 
-    // if (!isLoggedIn) {
-    //     return navigation.navigate('Login')
-    // }
-
     return (
         <View style={{backgroundColor: '#abd1c6', height: '100%'}}>
             <View style={{

@@ -1,8 +1,8 @@
-import {setStatus} from "../App/app-reducer";
 import {authAPI, LoginParamsType} from "../../api/todoapi";
-import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
 import axios from "axios";
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {setStatus} from "../App/app-reducer";
+import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
 
 export const loginTC = createAsyncThunk('auth/login', async (data: LoginParamsType, thunkAPI) => {
     thunkAPI.dispatch(setStatus({status: 'loading'}))
@@ -12,12 +12,12 @@ export const loginTC = createAsyncThunk('auth/login', async (data: LoginParamsTy
             thunkAPI.dispatch(setStatus({status: 'succeeded'}))
             return {value: true}
         } else {
-            handleServerAppError(res.data, thunkAPI.dispatch)
+            // handleServerAppError(res.data, thunkAPI.dispatch)
             return thunkAPI.rejectWithValue({someError: 'some error'})
         }
     } catch (e) {
-        if (axios.isAxiosError(e))
-            handleServerNetworkError(e, thunkAPI.dispatch)
+        if (axios.isAxiosError(e)){}
+            // handleServerNetworkError(e, thunkAPI.dispatch)
         return {value: false}
     }
 })
