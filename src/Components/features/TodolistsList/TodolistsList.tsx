@@ -112,7 +112,6 @@ export const Todolists = () => {
                     })
                 }
             </View>
-
         </View>
     )
 }
